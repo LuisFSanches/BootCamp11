@@ -5,8 +5,24 @@ import {parseISO, startOfHour,} from 'date-fns'
 
 class AppointmentsController{
 
+
+  async index(req:Request, res:Response){
+    const appointmentsRepository = await getCustomRepository(AppointmentsRepository)
+
+    try{
+      const checkAppointments = await appointmentsRepository.find()
+
+      return res.json(checkAppointments)
+    }
+    catch(err){
+      console.log(err)
+    }
+   
+  }
+
+
   async create(req:Request, res:Response){
-    //Accessing the methods to save and edit in DB
+    //----Accessing the methods to save and edit in DB----
     const appointmentsRepository = await getCustomRepository(AppointmentsRepository)
 
     const {provider, date} = req.body
@@ -26,7 +42,7 @@ class AppointmentsController{
        date:appointmentHour
      })
   
-      //Saving to DB
+      //-------Saving to DB------
       await appointmentsRepository.save(newAppointment)
       return res.status(201).json(newAppointment)
     }

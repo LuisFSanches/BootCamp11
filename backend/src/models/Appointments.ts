@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from "typeorm";
 import { v4 as uuid } from 'uuid';
 
 import {User} from './User'
@@ -11,6 +11,8 @@ class Appointment{
   @Column()
   provider_id:string;
 
+  @ManyToOne(()=> User)
+  @JoinColumn({name:'provider_id'})
   provider:User
 
   @Column('timestamp with time zone')

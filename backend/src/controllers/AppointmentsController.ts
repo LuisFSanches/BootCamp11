@@ -3,8 +3,8 @@ import { getCustomRepository } from 'typeorm';
 import { AppointmentsRepository } from '../repositories/AppointmentsRepository';
 import {parseISO, startOfHour,} from 'date-fns'
 
-class AppointmentsController{
 
+class AppointmentsController{
 
   async index(req:Request, res:Response){
     const appointmentsRepository = await getCustomRepository(AppointmentsRepository)
@@ -47,7 +47,7 @@ class AppointmentsController{
       return res.status(201).json(newAppointment)
     }
     catch(err){
-      console.log(err)
+      return res.status(400).json({error:err})
     }
    
   }
